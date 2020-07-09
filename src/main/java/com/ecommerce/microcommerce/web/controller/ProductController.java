@@ -111,7 +111,11 @@ public class ProductController {
     }
 
     //Liste des produits par ordre alphabetique
-    //public trierProduitsParOrdreAlphabetique
+    @GetMapping(value = "/Produits/Order")
+    public List<Product> trierProduitsParOrdreAlphabetique(){
+            List<Product>  produits = productDao.findByOrderByNomAsc();
+            return produits;
+    }
 
     @DeleteMapping (value = "/Produits/{id}")
     public void supprimerProduit(@PathVariable int id) {
