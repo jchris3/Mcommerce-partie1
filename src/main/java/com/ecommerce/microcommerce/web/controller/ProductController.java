@@ -6,17 +6,25 @@ import com.ecommerce.microcommerce.web.exceptions.ProduitIntrouvableException;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import jdk.nashorn.internal.parser.JSONParser;
+import jdk.nashorn.internal.runtime.JSONFunctions;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import springfox.documentation.spring.web.json.Json;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.List;
+import java.util.*;
 
 
 @Api( description="API pour es opérations CRUD sur les produits.")
@@ -82,6 +90,28 @@ public class ProductController {
 
         return ResponseEntity.created(location).build();
     }
+
+    //Calcule la Marge d'un Produit
+    @GetMapping(value = "/Produits/marge/{id}")
+    public String calculerMargeParProduit(@PathVariable int id){
+        Product produit = productDao.findById(id);
+        int marge = produit.getPrix()-produit.getPrixAchat();
+        return  produit + ":" + marge;
+    }
+
+    //Affiche les marges des produits
+    @GetMapping(value = "/AdminProduits")
+    public Map<Product,Integer> calculerMargeProduit() {
+        Iterable<Product> produits = productDao.findAll();
+        Map<Product,Integer> margeProduits = new HashMap<Product,Integer>();
+        for (Product produit : produits) {
+            margeProduits.put(produit,produit.getPrix()-produit.getPrixAchat());
+        }
+        return margeProduits;
+    }
+
+    //Liste des produits par ordre alphabetique
+    //public trierProduitsParOrdreAlphabetique
 
     @DeleteMapping (value = "/Produits/{id}")
     public void supprimerProduit(@PathVariable int id) {
