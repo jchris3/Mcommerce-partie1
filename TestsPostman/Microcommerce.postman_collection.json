@@ -1,0 +1,94 @@
+{
+	"info": {
+		"_postman_id": "dfbfa1c5-4471-4030-8b87-59d9023a4022",
+		"name": "Microcommerce",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "AdminProduits",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:9090/AdminProduits",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"AdminProduits"
+					]
+				},
+				"description": "Affiche la marge des produits"
+			},
+			"response": []
+		},
+		{
+			"name": "TriParOrdreAlphabetique",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:9090/Produits/Sort",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"Produits",
+						"Sort"
+					]
+				},
+				"description": "Liste des produits par ordre alphabetique"
+			},
+			"response": []
+		},
+		{
+			"name": "ValidationPrixVente",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 4,\r\n  \"nom\": \"Poney en bois cracheur de feu\",\r\n  \"prix\": 0,\r\n  \"prixVente\": 210\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9090/Produits",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"Produits"
+					]
+				},
+				"description": "Validation du prix de vente"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
